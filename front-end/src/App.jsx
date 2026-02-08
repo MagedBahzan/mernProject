@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router";
 
-import { openRoutes, data } from "./lib/data";
 import "./index.css";
+import { openRoutes, data } from "./lib/data";
 import HomePage from "./pages/HomePage";
 import CreatDocument from "./pages/CreatDocument";
 import Layout from "./componant/Layout";
@@ -44,27 +44,25 @@ const App = () => {
     return (
         <div>
             <Routes>
-            <Route
-                    element={
-                        isLoged ? (
-                            <Layout data={isLoged} />
-                        ) : (
-                            <Layout data={isLoged} />
-                        )
-                    }
-                >
                 <Route path="login" element={<Login onLogin={handelAuth} />} />
-                <Route
-                    path="updatepassword"
-                    element={isLoged ? <Updatepassword /> : <Forbidden />}
-                />
-                <Route path="forget-password" element={<ForgetPassword />} />
-                <Route path="resetpassword/:id" element={<Resetpassword />} />
+                <Route element={<Layout data={isLoged} appAuth={handelAuth} />}>
+                    <Route
+                        path="updatepassword"
+                        element={isLoged ? <Updatepassword /> : <Forbidden />}
+                    />
+                    <Route
+                        path="forget-password"
+                        element={<ForgetPassword />}
+                    />
+                    <Route
+                        path="resetpassword/:id"
+                        element={<Resetpassword />}
+                    />
                     <Route path="/" element={<HomePage docs={docs} />} />
                     {/* <Route path="courses">
-          <Route index element={<CoursesPage />} />
-          <Route path=":id" element={<CoursesDetailesPage />} />
-        </Route> */}
+                        <Route index element={<CoursesPage />} />
+                        <Route path=":id" element={<CoursesDetailesPage />} />
+                        </Route> */}
                     <Route path="/:id" element={<OneDocumentPage />} />
                     <Route
                         path="creat-document"

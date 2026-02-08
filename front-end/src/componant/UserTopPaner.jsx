@@ -6,27 +6,28 @@ import api from "../lib/axios";
 const UserTopPaner = (props) => {
     const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [logedUser, setLogedUser] = useState("");
+    const [user, setLogedUser] = useState("");
     useEffect(() => {
         const getuser = async () => {
             api.get("/main/user/me")
                 .then((res) => {
                     setLogedUser(res.data.data.doc);
+                    setIsLoggedIn(true);
                 })
                 .catch(() => {
                     setIsLoggedIn(false);
                 });
         };
         props ? getuser() : null;
-        setIsLoggedIn(props.data.data);
     }, [props]);
-
     //logOut function
     const logOut = async () => {
         await api.post("/main/user/logout");
-        toast.success("loged out");
-        setIsLoggedIn(false);
-        navigate("/");
+        (() => {
+            toast.success("loged out");
+            props.onAuth(false);
+            navigate("/");
+        })();
     };
     return (
         <>
@@ -58,7 +59,7 @@ const UserTopPaner = (props) => {
                             logOut
                         </button>
                         ||
-                        <div className="w-10">{logedUser.name}</div>
+                        <div className="w-10">{user.name}</div>
                     </>
                 </div>
             ) : (
