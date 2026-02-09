@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router";
 
 import "./index.css";
-import { openRoutes, data } from "./lib/data";
+import api from "./lib/axios";
 import HomePage from "./pages/HomePage";
 import CreatDocument from "./pages/CreatDocument";
 import Layout from "./componant/Layout";
@@ -14,6 +14,7 @@ import Updatepassword from "./pages/Updatepassword";
 import UpdateDocument from "./pages/UpdateDocument";
 import EditDocument from "./pages/EditDocument";
 import Forbidden from "./pages/Forbidden";
+import SignUp from "./pages/SignUp";
 
 const App = () => {
     const [isLoged, setIsLoged] = useState(null);
@@ -24,7 +25,7 @@ const App = () => {
     useEffect(() => {
         const fetchDocs = async () => {
             try {
-                const res = await data;
+                const res = await api.get("/main/news");
                 setDocs(res.data.data.allDocs);
             } catch (error) {
                 console.log("error fetching data");
@@ -33,7 +34,7 @@ const App = () => {
         fetchDocs();
         const fetchLog = async () => {
             try {
-                await openRoutes;
+                await api.get("/main/user/openRoutes");
                 setIsLoged(true);
             } catch (error) {
                 setIsLoged(false);
@@ -46,6 +47,7 @@ const App = () => {
             <Routes>
                 <Route path="login" element={<Login onLogin={handelAuth} />} />
                 <Route element={<Layout data={isLoged} appAuth={handelAuth} />}>
+                    <Route path="Signup" element={<SignUp />} />
                     <Route
                         path="updatepassword"
                         element={isLoged ? <Updatepassword /> : <Forbidden />}

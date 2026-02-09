@@ -18,13 +18,14 @@ const UserTopPaner = (props) => {
                     setIsLoggedIn(false);
                 });
         };
-        props ? getuser() : null;
+        props.data.data ? getuser() : null;
     }, [props]);
     //logOut function
     const logOut = async () => {
         await api.post("/main/user/logout");
         (() => {
             toast.success("loged out");
+            setIsLoggedIn(false)
             props.onAuth(false);
             navigate("/");
         })();
@@ -74,7 +75,7 @@ const UserTopPaner = (props) => {
                     </div>
                     <div>
                         <Link
-                            to={"/create-accaount"}
+                            to={"/Signup"}
                             className="menu menu-horizontal px-1"
                         >
                             create accaount

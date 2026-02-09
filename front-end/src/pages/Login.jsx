@@ -15,10 +15,7 @@ const Login = ({ onLogin }) => {
             return;
         }
         try {
-            await api.post("/main/user/login", {
-                email,
-                password,
-            });
+            await api.post("/main/user/login", { email, password });
             setIsLogedIn(true);
             toast.success("loged in");
             navigate("/");
