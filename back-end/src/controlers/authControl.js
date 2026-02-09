@@ -96,7 +96,10 @@ export const sginUp = catchAsync(async (req, res, next) => {
         passwordConfirm: req.body.passwordConfirm,
         passChangDat: req.body.passChangDat,
     });
-    createSendToken(true, newUser, 201, res);
+    // createSendToken(true, newUser, 201, res);
+    res.status(201).json({
+        status: "succes, accaunt created",
+    });
 });
 
 export const logIn = catchAsync(async (req, res, next) => {

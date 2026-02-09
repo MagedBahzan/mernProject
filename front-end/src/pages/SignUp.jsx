@@ -27,7 +27,7 @@ function SignUp() {
         try {
             await api.post("/main/user/sginup",
                 { name, age, email, password, passwordConfirm, gender });
-            toast.success("account created");
+            toast.success("account created, plase login");
             navigate("/");
         } catch (error) {
             toast.error("failed to create account!");
