@@ -12,6 +12,7 @@ const CreatDocument = () => {
     const [content, setContent] = useState("");
     const [content2, setContent2] = useState("");
     const [content3, setContent3] = useState("");
+    const [imgSrc, setImgSrc] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -19,7 +20,8 @@ const CreatDocument = () => {
             !title.trim() ||
             !category.trim() ||
             !description.trim() ||
-            !content.trim()
+            !content.trim() ||
+            !imgSrc.trim()
         ) {
             toast.error("all feilds are required!");
             return;
@@ -35,6 +37,7 @@ const CreatDocument = () => {
                     content,
                     content2,
                     content3,
+                    imgSrc
                 }
             );
             console.log(res.data);
@@ -63,6 +66,14 @@ const CreatDocument = () => {
                         value={category}
                         placeholder="enter category"
                         onChange={(e) => setCategory(e.target.value)}
+                    />
+                </div>
+                <div className="form-control mb-4">
+                    <input
+                        type="text"
+                        value={imgSrc}
+                        placeholder="enter category"
+                        onChange={(e) => setImgSrc(e.target.value)}
                     />
                 </div>
                 <div className="form-control mb-4">

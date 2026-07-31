@@ -1,12 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router";
+import api from "../lib/axios";
 import { Link } from "react-router";
 
-const HomePage = (props) => {
+const CategoryPage = () => {
+    const parm = useParams();
+    const [documentData, setdocumentData] = useState(null);
+    useEffect(() => {
+        const fetchDocs = async () => {
+            try {
+                const res = await api.get(
+                    `http://127.0.0.1:5001/api/v1/main/news/${parm.id}`
+                );
+                setdocumentData(res.data.data.allDocs);
+            } catch (error) {
+                console.log("error fetching data");
+            }
+        };
+        fetchDocs();
+    }, [parm.id]);
     return (
         <div className="w-full px-36 py-6">
             <div className="grid grid-cols-4 gap-4">
-                {props &&
-                    props.docs.map((ele) => {
+                {documentData &&
+                    documentData.map((ele) => {
                         return (
                             <Link
                                 className="card bg-base-100 w-96 shadow-xl"
@@ -43,4 +60,5 @@ const HomePage = (props) => {
         </div>
     );
 };
-export default HomePage;
+
+export default CategoryPage;

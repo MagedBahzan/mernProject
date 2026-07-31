@@ -1,6 +1,7 @@
 import express from "express";
 import {
     getALLNews,
+    getNewsCategory,
     setAuther,
     createNews,
     setNewLink,
@@ -20,14 +21,13 @@ router.route("/").get(getALLNews).post(
     setAuther,
     createNews
 );
-// router.route("/get-movie").get(getNewsStatus);
-router.route("/:id").get(getNews).patch(
+router.route("/:id").get(getNewsCategory);
+router.route("/title/:id").get(getNews).patch(
     //only admin
     protect,
     restractTo("admin"),
     setDateModified,
-    setNewLink,
-    editNewsInfo
+    editNewsInfo 
 );
 router.delete(
     "/delete_news/:id", //only admin

@@ -3,6 +3,7 @@ import {
     getAllDocs,
     getOneDoc,
     createOne,
+    getDocsCategory,
     editInfo,
     deletOne,
 } from "./handlerFactory.js";
@@ -19,11 +20,13 @@ export const setDateModified = async (req, res, next) => {
     next();
 };
 export const setNewLink = async (req, res, next) => {
-    req.body.link = req.body.title.replaceAll(" ","-");
+    req.body.link = req.body.title.replaceAll(" ", "-");
     next();
 };
 
-export const getALLNews = getAllDocs(News);
+export const getALLNews = getAllDocs(News); 
+
+export const getNewsCategory = getDocsCategory(News);
 
 export const getNews = getOneDoc(News);
 

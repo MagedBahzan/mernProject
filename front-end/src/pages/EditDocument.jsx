@@ -13,7 +13,7 @@ const EditDocument = () => {
         const fetchDocs = async () => {
             try {
                 const res = await api.get(
-                    `/main/news/${parm.id}`
+                    `/main/news/title/${parm.id}`
                 );
                 setdocumentData(res.data.data.doc);
             } catch (error) {

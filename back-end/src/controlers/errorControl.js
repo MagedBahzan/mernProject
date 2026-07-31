@@ -9,7 +9,7 @@ const sendErrorDev = (err, res) => {
     message: err.message,
     stack: err.stack,
   });
-};
+}; 
 
 const handleCastError = (err) => {
   console.log(err);

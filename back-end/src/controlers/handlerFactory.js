@@ -35,11 +35,31 @@ export const getAllDocs = (Model) =>
             },
         });
     });
+// Get all Docs from DB
+export const getDocsCategory = (Model) =>
+    catchAsync(async (req, res, next) => {
+        const featurs = new ApiFeaturs(
+            Model.find({ category: req.params.id }),
+            req.query
+        )
+            .filtre()
+            .sort()
+            .limiting()
+            .pagenation();
+
+        const allDocs = await featurs.query;
+        res.status(200).json({
+            status: "succes",
+            data: {
+                allDocs,
+            },
+        });
+    });
 
 // Get one doc from DB
 export const getOneDoc = (Model) =>
     catchAsync(async (req, res, next) => {
-        const doc = await Model.findOne({ link : req.params.id });
+        const doc = await Model.findOne({ link: req.params.id });
         if (!doc) {
             return next(new AppError(`Document dos not exist`, 404));
         } else {
@@ -53,7 +73,7 @@ export const getOneDoc = (Model) =>
     });
 export const getUserData = (Model) =>
     catchAsync(async (req, res, next) => {
-        const doc = await Model.findOne({ _id : req.params.id });
+        const doc = await Model.findOne({ _id: req.params.id });
         if (!doc) {
             return next(new AppError(`Document dos not exist`, 404));
         } else {

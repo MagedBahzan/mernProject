@@ -9,7 +9,7 @@ const OneDocumentPage = () => {
         const fetchDocs = async () => {
             try {
                 const res = await api.get(
-                    `http://127.0.0.1:5001/api/v1/main/news/${parm.id}`
+                    `http://127.0.0.1:5001/api/v1/main/news/title/${parm.id}`
                 );
                 setdocumentData(res.data.data.doc);
             } catch (error) {

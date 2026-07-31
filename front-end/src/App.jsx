@@ -15,6 +15,7 @@ import UpdateDocument from "./pages/UpdateDocument";
 import EditDocument from "./pages/EditDocument";
 import Forbidden from "./pages/Forbidden";
 import SignUp from "./pages/SignUp";
+import CategoryPage from "./pages/CategoryPage";
 
 const App = () => {
     const [isLoged, setIsLoged] = useState(null);
@@ -43,10 +44,10 @@ const App = () => {
         if (!isLoged) fetchLog();
     }, []);
     return (
-        <div>
+        <div data-theme="light">
             <Routes>
+                <Route element={<Layout data={isLoged} docs={docs} appAuth={handelAuth} />}>
                 <Route path="login" element={<Login onLogin={handelAuth} />} />
-                <Route element={<Layout data={isLoged} appAuth={handelAuth} />}>
                     <Route path="Signup" element={<SignUp />} />
                     <Route
                         path="updatepassword"
@@ -65,7 +66,8 @@ const App = () => {
                         <Route index element={<CoursesPage />} />
                         <Route path=":id" element={<CoursesDetailesPage />} />
                         </Route> */}
-                    <Route path="/:id" element={<OneDocumentPage />} />
+                    <Route path="/:id" element={<CategoryPage />} />
+                    <Route path="/title/:id" element={<OneDocumentPage />} />
                     <Route
                         path="creat-document"
                         element={isLoged ? <CreatDocument /> : <Forbidden />}

@@ -11,7 +11,7 @@ const Layout = ( props) => {
     return (
         <>
             <UserTopPaner data={props} onAuth={handelAuth} />
-            <NavBar />
+            <NavBar docs={props.docs}/>
             <Outlet />
         </>
     );
